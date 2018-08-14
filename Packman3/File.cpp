@@ -5,17 +5,17 @@
 
 using namespace std;
 
-File::File(const char* filename) : mSize(0), mData(0) {
-	ifstream f(filename, ifstream::binary);
+File::File( const char* filename ) : mSize( 0 ), mData( 0 ) {
+	ifstream f( filename, ifstream::binary );
 	if(f) {
-		f.seekg(0, ifstream::end);
-		mSize = static_cast<int>(f.tellg());
-		f.seekg(0, ifstream::beg);
-		mData = new char[mSize];
-		f.read(mData, mSize);
+		f.seekg( 0, ifstream::end );
+		mSize = static_cast<int>( f.tellg() );
+		f.seekg( 0, ifstream::beg );
+		mData = new char[ mSize ];
+		f.read( mData, mSize );
 		f.close();
 	} else {
-		OutputDebugString("ファイルの読み込みに失敗しました\n");
+		OutputDebugString( "ファイルの読み込みに失敗しました\n" );
 	}
 }
 

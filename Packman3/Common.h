@@ -7,7 +7,6 @@
 #define WINDOW_HALF_HEIGHT WINDOW_HEIGHT / 2
 
 //フレームレート
-#define INTERVAL 60
 #define FPS 60
 
 //プレイ中の1マスの幅

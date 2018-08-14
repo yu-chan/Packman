@@ -7,7 +7,7 @@ public:
 	static void destroy();
 	static SoundManager* instance();
 
-	void loadBgm(const char* filename);
+	void loadBgm( const char* filename );
 	void playBgm();
 	void stopBgm();
 	void deleteBgm();

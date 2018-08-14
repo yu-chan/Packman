@@ -6,7 +6,7 @@ public:
 	static void create();
 	static void destroy();
 	static KeyboardManager* instance();
-	bool isOn(int inputid);
+	bool isOn( int inputId );
 	void updateKey();
 
 private:
@@ -14,7 +14,7 @@ private:
 	~KeyboardManager();
 	static KeyboardManager* mInstance;
 
-	int key[256];
+	int key[ 256 ];
 };
 
 #endif

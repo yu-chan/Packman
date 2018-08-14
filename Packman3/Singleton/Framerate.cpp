@@ -32,7 +32,7 @@ void Framerate::tick() {
 		mStartTime = GetNowCount();
 		mCnt = 0;
 	} else {
-		int expectedElapsedTime = mCnt * ( 1000.0 / FPS );
+		int expectedElapsedTime = mCnt * ( 1000 / FPS );
 		int elapsedTime = GetNowCount() - mStartTime;
 		int restTime = expectedElapsedTime - elapsedTime;
 		//規定のフレームレートより進んでいるのなら、その分だけ時間を待つ

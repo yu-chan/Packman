@@ -3,7 +3,7 @@
 
 class File {
 public:
-	File(const char* filename);
+	File( const char* filename );
 	~File();
 
 	int size() const;

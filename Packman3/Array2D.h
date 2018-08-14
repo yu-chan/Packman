@@ -3,26 +3,26 @@
 
 template<class T> class Array2D {
 public:
-	Array2D() : mArray(0) {}
+	Array2D() : mArray( 0 ) {}
 	~Array2D() {
 		delete mArray;
 		mArray = 0;
 	}
 
-	void setSize(int xSize, int ySize) {
+	void setSize( int xSize, int ySize ) {
 		delete mArray;
 		mArray = 0;
 		mXsize = xSize;
 		mYsize = ySize;
-		mArray = new T[mXsize * mYsize];
+		mArray = new T[ mXsize * mYsize ];
 	}
 
-	T& operator()(int x, int y) {
-		return mArray[y * mXsize + x];
+	T& operator()( int x, int y ) {
+		return mArray[ y * mXsize + x ];
 	}
 
-	const T& operator()(int x, int y) const {
-		return mArray[y * mXsize + x];
+	const T& operator()( int x, int y ) const {
+		return mArray[ y * mXsize + x ];
 	}
 
 private:
