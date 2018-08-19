@@ -13,6 +13,42 @@
     <ClCompile Include="Singleton\SoundManager.cpp">
       <Filter>Singleton</Filter>
     </ClCompile>
+    <ClCompile Include="Sequence\Ending.cpp">
+      <Filter>Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\GameOver.cpp">
+      <Filter>Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Parent.cpp">
+      <Filter>Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Title.cpp">
+      <Filter>Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Clear.cpp">
+      <Filter>Sequence\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Parent.cpp">
+      <Filter>Sequence\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Pause.cpp">
+      <Filter>Sequence\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Play.cpp">
+      <Filter>Sequence\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Ready.cpp">
+      <Filter>Sequence\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Character.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\StaticObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h" />
@@ -28,6 +64,51 @@
     <ClInclude Include="Singleton\SoundManager.h">
       <Filter>Singleton</Filter>
     </ClInclude>
+    <ClInclude Include="Sequence\Child.h">
+      <Filter>Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Ending.h">
+      <Filter>Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\GameOver.h">
+      <Filter>Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Parent.h">
+      <Filter>Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Title.h">
+      <Filter>Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Child.h">
+      <Filter>Sequence\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Clear.h">
+      <Filter>Sequence\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Parent.h">
+      <Filter>Sequence\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Pause.h">
+      <Filter>Sequence\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Play.h">
+      <Filter>Sequence\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence\Game\Ready.h">
+      <Filter>Sequence\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Character.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\StaticObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Object.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sequence">
@@ -35,6 +116,12 @@
     </Filter>
     <Filter Include="Singleton">
       <UniqueIdentifier>{17636c2d-ee95-41c6-a7eb-618d988b9ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sequence\Game">
+      <UniqueIdentifier>{197933d5-3e9c-40be-b40e-8d1af41f26f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{8e52d088-121b-4f9a-84fd-cbde83429fd3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

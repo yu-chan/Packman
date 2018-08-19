@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\USER\Documents\Visual Studio 2012\Projects\Packman3\Packman3\DxLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\USER\Documents\Visual Studio 2012\Projects\Packman3\Packman3\DxLib; $(ProjectDir)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -85,8 +85,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="Game\Character.cpp" />
+    <ClCompile Include="Game\Stage.cpp" />
+    <ClCompile Include="Game\StaticObject.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="PackmanMain.cpp" />
+    <ClCompile Include="Sequence\Ending.cpp" />
+    <ClCompile Include="Sequence\GameOver.cpp" />
+    <ClCompile Include="Sequence\Game\Clear.cpp" />
+    <ClCompile Include="Sequence\Game\Parent.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)Parent1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Sequence\Game\Pause.cpp" />
+    <ClCompile Include="Sequence\Game\Play.cpp" />
+    <ClCompile Include="Sequence\Game\Ready.cpp" />
+    <ClCompile Include="Sequence\Parent.cpp" />
+    <ClCompile Include="Sequence\Title.cpp" />
     <ClCompile Include="Singleton\Framerate.cpp" />
     <ClCompile Include="Singleton\KeyboardManager.cpp" />
     <ClCompile Include="Singleton\SoundManager.cpp" />
@@ -95,7 +109,22 @@
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="Game\Character.h" />
+    <ClInclude Include="Game\Object.h" />
+    <ClInclude Include="Game\Stage.h" />
+    <ClInclude Include="Game\StaticObject.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Sequence\Child.h" />
+    <ClInclude Include="Sequence\Ending.h" />
+    <ClInclude Include="Sequence\GameOver.h" />
+    <ClInclude Include="Sequence\Game\Child.h" />
+    <ClInclude Include="Sequence\Game\Clear.h" />
+    <ClInclude Include="Sequence\Game\Parent.h" />
+    <ClInclude Include="Sequence\Game\Pause.h" />
+    <ClInclude Include="Sequence\Game\Play.h" />
+    <ClInclude Include="Sequence\Game\Ready.h" />
+    <ClInclude Include="Sequence\Parent.h" />
+    <ClInclude Include="Sequence\Title.h" />
     <ClInclude Include="Singleton\Framerate.h" />
     <ClInclude Include="Singleton\KeyboardManager.h" />
     <ClInclude Include="Singleton\SoundManager.h" />
