@@ -14,7 +14,7 @@ public:
 	virtual ~Object();
 	virtual void draw( const Image* ) const = 0;
 
-	void getPosition( int* x, int* y ) {
+	void getPosition( int* x, int* y ) const {
 		*x = mX;
 		*y = mY;
 	}

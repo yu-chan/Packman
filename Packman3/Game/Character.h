@@ -1,7 +1,7 @@
 #ifndef INCLUDED_GAME_CHARACTER_H
 #define INCLUDED_GAME_CHARACTER_H
 
-#include "Object.h"
+#include "Game/Object.h"
 
 class StaticObject;
 
@@ -18,14 +18,16 @@ public:
 	};
 
 	void set( int, int , CharacterType );
-	void setRandomDetX();
+	void setRandomDet();
 	void update( const Object* );
-	void getPosition( int*, int* ) const;
 
 	
 	void playerMove( const Object* );
-
 	void enemyMove( const Object* );
+	
+	bool isDead() const;
+	bool isPlayer() const;
+	bool isEnemy() const;
 
 	void draw( const Image* ) const;
 
