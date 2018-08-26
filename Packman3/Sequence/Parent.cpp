@@ -8,18 +8,24 @@
 
 namespace Sequence {
 	
-Parent::Parent() : mNextSequence( NEXT_NONE ), mChild( 0 ) {
+Parent::Parent() :
+mNextSequence( NEXT_NONE ),
+mChild( 0 )
+{
 	mChild = new Title();
 }
 
-Parent::~Parent() {
+Parent::~Parent()
+{
 	deleteChild();
 }
 
-void Parent::update() {
-	mChild->update(this);
+void Parent::update()
+{
+	mChild->update( this );
 
-	switch(mNextSequence) {
+	switch( mNextSequence )
+	{
 		case NEXT_TITLE:
 			deleteChild();
 			mChild = new Title();
@@ -43,13 +49,16 @@ void Parent::update() {
 }
 
 //‰æ–Ê‘JˆÚ‚ğXV
-void Parent::moveToNextSequence(NextSequence next) {
+void Parent::moveToNextSequence( NextSequence next )
+{
 	mNextSequence = next;
 }
 
 //‰æ–Ê‘JˆÚ‚·‚éÛ‚ÉA¡‚Ì‰æ–Ê‚ğ”jŠü‚·‚é
-void Parent::deleteChild() {
-	if( mChild ) {
+void Parent::deleteChild()
+{
+	if( mChild )
+	{
 		delete mChild;
 		mChild = 0;
 	}

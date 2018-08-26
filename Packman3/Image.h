@@ -1,7 +1,8 @@
 #ifndef INCLUDED_IMAGE_H
 #define INCLUDED_IMAGE_H
 
-class Image {
+class Image
+{
 public:
 	Image( const char* filename );
 	~Image();

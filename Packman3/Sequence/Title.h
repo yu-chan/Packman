@@ -5,15 +5,17 @@
 
 class Image;
 
-namespace Sequence {
+namespace Sequence
+{
 
 class Parent;
 
-class Title : public Child {
+class Title : public Child
+{
 public:
 	Title();
 	~Title();
-	void update(Parent*);
+	void update( Parent* );
 
 private:
 	Image* mImage;

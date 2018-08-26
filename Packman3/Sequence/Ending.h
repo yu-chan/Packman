@@ -9,11 +9,12 @@ namespace Sequence {
 
 class Parent;
 
-class Ending : public Child {
+class Ending : public Child
+{
 public:
 	Ending();
 	~Ending();
-	void update(Parent*);
+	void update( Parent* );
 
 private:
 	Image* mImage;

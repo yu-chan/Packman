@@ -6,19 +6,24 @@
 
 namespace Sequence {
 
-Ending::Ending() : mImage(0) {
-	mImage = new Image("data/image/ending.png");
+Ending::Ending() :
+mImage( 0 )
+{
+	mImage = new Image( "data/image/ending.png" );
 }
 
-Ending::~Ending() {
+Ending::~Ending()
+{
 	delete mImage;
 	mImage = 0;
 }
 
-void Ending::update(Parent* parent) {
-	if(KeyboardManager::instance()->isOn(KEY_INPUT_SPACE)) {
+void Ending::update( Parent* parent )
+{
+	if( KeyboardManager::instance()->isOn( KEY_INPUT_SPACE ) )
+	{
 		//TODO:Œˆ’è‰¹
-		parent->moveToNextSequence(Parent::NEXT_TITLE);
+		parent->moveToNextSequence( Parent::NEXT_TITLE );
 	}
 
 	mImage->draw();

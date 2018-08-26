@@ -5,7 +5,8 @@
 
 class StaticObject;
 
-class Character : public Object {
+class Character : public Object
+{
 public:
 	Character();
 	~Character();
@@ -21,11 +22,14 @@ public:
 	void setRandomDet();
 	void update( const Object* );
 
+	unsigned type() const;
+	void count();
 	
 	void playerMove( const Object* );
 	void enemyMove( const Object* );
 	
-	bool isDead() const;
+	bool dead() const;
+	bool clear() const;
 	bool isPlayer() const;
 	bool isEnemy() const;
 

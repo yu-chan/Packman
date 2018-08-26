@@ -1,7 +1,8 @@
 #ifndef INCLUDED_FRAMERATE_H
 #define INCLUDED_FRAMERATE_H
 
-class Framerate {
+class Framerate
+{
 public:
 	static void create();
 	static void destroy();

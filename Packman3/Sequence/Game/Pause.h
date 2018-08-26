@@ -5,16 +5,19 @@
 
 class Image;
 
-namespace Sequence {
-namespace Game {
+namespace Sequence
+{
+namespace Game
+{
 
 class Parent;
 
-class Pause : public Child {
+class Pause : public Child
+{
 public:
 	Pause();
 	~Pause();
-	void update(Parent*);
+	void update( Parent* );
 
 private:
 	Image* mImage;

@@ -1,7 +1,8 @@
 #ifndef INCLUDED_FILE_H
 #define INCLUDED_FILE_H
 
-class File {
+class File
+{
 public:
 	File( const char* filename );
 	~File();

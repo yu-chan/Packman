@@ -1,7 +1,8 @@
 #ifndef INCLUDED_KEYBOARDMANAGER_H
 #define INCLUDED_KEYBOARDMANAGER_H
 
-class KeyboardManager {
+class KeyboardManager
+{
 public:
 	static void create();
 	static void destroy();

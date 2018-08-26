@@ -1,7 +1,8 @@
 #ifndef INCLUDED_SOUNDMANAGER_H
 #define INCLUDED_SOUNDMANAGER_H
 
-class SoundManager {
+class SoundManager
+{
 public:
 	static void create();
 	static void destroy();

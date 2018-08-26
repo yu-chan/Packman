@@ -4,16 +4,20 @@
 #include "Sequence/Game/Parent.h"
 #include "Sequence/Game/Play.h"
 
-namespace Sequence {
-namespace Game {
+namespace Sequence
+{
+namespace Game
+{
 
-Play::Play() {
+Play::Play()
+{
 }
 
 Play::~Play() {
 }
 
-void Play::update(Parent* parent) {
+void Play::update( Parent* parent )
+{
 	Stage* stage = parent->stage();
 	//クリアもしくはゲームオーバーなら、タイトルに遷移する
 	/*if(stage->clear()) {

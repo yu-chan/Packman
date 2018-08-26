@@ -9,20 +9,24 @@ class Image;
 ** 継承用クラス
 ** キャラクターや、壁などの物体に用いる
 */
-class Object {
+class Object
+{
 public:
-	virtual ~Object();
+	virtual ~Object() {}
 	virtual void draw( const Image* ) const = 0;
 
-	void getPosition( int* x, int* y ) const {
+	void getPosition( int* x, int* y ) const
+	{
 		*x = mX;
 		*y = mY;
 	}
 
-	int convertPixelToInner( const int pos ) const {
+	int convertPixelToInner( const int pos ) const
+	{
 		return pos + OBJECT_HALF_SIZE;
 	}
-	int convertInnerToPixel( const int pos ) const {
+	int convertInnerToPixel( const int pos ) const
+	{
 		return pos - OBJECT_HALF_SIZE;
 	}
 

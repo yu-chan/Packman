@@ -3,18 +3,24 @@
 #include "Sequence/Game/Parent.h"
 #include "Sequence/Game/Pause.h"
 
-namespace Sequence {
-namespace Game {
+namespace Sequence
+{
+namespace Game
+{
 
-Pause::Pause() : mImage(0) {
+Pause::Pause() :
+mImage( 0 )
+{
 }
 
-Pause::~Pause() {
+Pause::~Pause()
+{
 	delete mImage;
 	mImage = 0;
 }
 
-void Pause::update(Parent* parent) {
+void Pause::update( Parent* parent )
+{
 }
 
 }

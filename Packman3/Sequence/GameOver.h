@@ -5,15 +5,17 @@
 
 class Image;
 
-namespace Sequence {
+namespace Sequence
+{
 
 class Parent;
 
-class GameOver : public Child {
+class GameOver : public Child
+{
 public:
 	GameOver();
 	~GameOver();
-	void update(Parent*);
+	void update( Parent* );
 
 private:
 	static const int TITLE_SEQUENCE_TIME = 120;

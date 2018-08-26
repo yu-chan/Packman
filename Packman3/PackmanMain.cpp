@@ -8,14 +8,16 @@
 #include "Sequence/Parent.h"
 
 
-int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow ) {
+int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
+{
 	//ウィンドウモードにする
 	ChangeWindowMode( TRUE );
 
 	SetWindowSize( WINDOW_WIDTH, WINDOW_HEIGHT );
 
 	//DXライブラリを使用可能な状態にする
-	if( DxLib_Init() == -1 ) {
+	if( DxLib_Init() == -1 )
+	{
 		OutputDebugString( "DxLib_Init()の失敗\n" );
 		return 1;
 	}
@@ -29,21 +31,26 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	srand( static_cast< unsigned >( time( NULL ) ) );
 
 	//シングルトンの作成
-	if( !KeyboardManager::instance() ) {
+	if( !KeyboardManager::instance() )
+	{
 		KeyboardManager::create();
 	}
-	if( !Framerate::instance() ) {
+	if( !Framerate::instance() )
+	{
 		Framerate::create();
 	}
-	if( !SoundManager::instance() ) {
+	if( !SoundManager::instance() )
+	{
 		SoundManager::create();
 	}
 
 	//シーケンス制御するインスタンス作成
 	Sequence::Parent* parent = new Sequence::Parent();
 
-	while( !KeyboardManager::instance()->isOn( KEY_INPUT_Q ) ) { //Qを押したら終了
-		if( ProcessMessage() != 0 ) {
+	while( !KeyboardManager::instance()->isOn( KEY_INPUT_Q ) ) //Qを押したら終了
+	{
+		if( ProcessMessage() != 0 )
+		{
 			OutputDebugString( "ProcessMessageでエラーが起きた\n" );
 			break;
 		}

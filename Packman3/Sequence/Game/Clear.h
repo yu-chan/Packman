@@ -5,16 +5,19 @@
 
 class Image;
 
-namespace Sequence {
-namespace Game {
+namespace Sequence
+{
+namespace Game
+{
 
 class Parent;
 
-class Clear : public Child {
+class Clear : public Child
+{
 public:
 	Clear();
 	~Clear();
-	void update(Parent*);
+	void update( Parent* );
 
 private:
 	//クリア後、タイトル画面に遷移するまでの時間

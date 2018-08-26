@@ -6,7 +6,8 @@
 class Image;
 
 namespace Sequence {
-namespace Game {
+namespace Game
+{
 
 class Parent;
 
@@ -14,7 +15,7 @@ class Ready : public Child {
 public:
 	Ready();
 	~Ready();
-	void update(Parent*);
+	void update( Parent* );
 
 private:
 	static const int PLAY_READY_TIME =  60;

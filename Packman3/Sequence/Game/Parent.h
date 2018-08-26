@@ -5,25 +5,29 @@
 
 class Stage;
 
-namespace Sequence {
+namespace Sequence
+{
 
 class Parent;
 
-namespace Game {
+namespace Game
+{
 
 class Child;
 
-class Parent : public Sequence::Child {
+class Parent : public Sequence::Child
+{
 public:
 	typedef Sequence::Parent GrandParent;
 
 	Parent();
 	~Parent();
 
-	void update(GrandParent*);
+	void update( GrandParent* );
 
 	//‘JˆÚ‰æ–Ê‚ÌŽí—Þ
-	enum NextSequence {
+	enum NextSequence
+	{
 		NEXT_TITLE,
 		NEXT_PLAY,
 		NEXT_GAMEOVER,
@@ -35,7 +39,7 @@ public:
 
 		NEXT_NONE,
 	};
-	void moveToNextSequence(NextSequence);
+	void moveToNextSequence( NextSequence );
 
 	void draw() const;
 

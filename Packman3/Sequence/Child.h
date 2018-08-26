@@ -7,7 +7,8 @@ class Parent;
 
 //画面遷移するのに利用
 //このクラスを継承したクラス間で遷移する
-class Child {
+class Child
+{
 public:
 	virtual ~Child() {}
 	virtual void update(Parent*) = 0;
