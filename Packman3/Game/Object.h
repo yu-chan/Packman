@@ -15,6 +15,17 @@ public:
 	virtual ~Object() {}
 	virtual void draw( const Image* ) const = 0;
 
+	enum ObjectType
+	{
+		STATIC,
+		DYANAMIC,
+	};
+
+	void setObjectType( const ObjectType objTyp )
+	{
+		mObjectType = objTyp;
+	}
+
 	void getPosition( int* x, int* y ) const
 	{
 		*x = mX;
@@ -32,6 +43,7 @@ public:
 
 protected:
 	Image* mImage;
+	ObjectType mObjectType;
 	int mX;
 	int mY;
 };

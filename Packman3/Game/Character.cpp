@@ -14,10 +14,12 @@ isClear( 0 )
 
 Character::~Character() {}
 
-void Character::set( int x, int y, CharacterType )
+void Character::set( int x, int y, CharacterType characterTyp, ObjectType objectType )
 {
 	mX = x;
 	mY = y;
+	mCharacterType = characterTyp;
+	setObjectType( objectType );
 }
 
 void Character::setRandomDet()

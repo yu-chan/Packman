@@ -35,10 +35,11 @@ unsigned StaticObject::flag() const
 	return mFlag;
 }
 
-void StaticObject::set( int x, int y, unsigned flag )
+void StaticObject::set( int x, int y, unsigned flag, ObjectType objTyp )
 {
 	setPosition( x, y );
 	setFlag( flag );
+	setObjectType( objTyp );
 }
 
 void StaticObject::setPosition( int x, int y )
