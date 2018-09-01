@@ -35,18 +35,10 @@ unsigned StaticObject::flag() const
 	return mFlag;
 }
 
-void StaticObject::set( int x, int y, unsigned flag, ObjectType objTyp )
+void StaticObject::setStaticObject( int x, int y, unsigned flag )
 {
-	setPosition( x, y );
+	set( x, y, STATIC );
 	setFlag( flag );
-	setObjectType( objTyp );
-}
-
-void StaticObject::setPosition( int x, int y )
-{
-	//ç∂í[Ç©ÇÁíÜêSç¿ïWÇ÷ïœä∑
-	mX = convertPixelToInner( x );
-	mY = convertPixelToInner( y );
 }
 
 void StaticObject::draw( const Image* image ) const

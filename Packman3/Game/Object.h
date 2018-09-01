@@ -21,9 +21,16 @@ public:
 		DYANAMIC,
 	};
 
-	void setObjectType( const ObjectType objTyp )
+	void set( int x, int y, const ObjectType objTyp )
 	{
+		setPosition( x, y );
 		mObjectType = objTyp;
+	}
+
+	void setPosition( int x, int y )
+	{
+		mX = convertPixelToInner( x );
+		mY = convertPixelToInner( y );
 	}
 
 	void getPosition( int* x, int* y ) const

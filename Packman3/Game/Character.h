@@ -18,7 +18,7 @@ public:
 		CHARACTERTYPE_NONE,
 	};
 
-	void set( int, int , CharacterType, ObjectType );
+	void setCharacter( int, int , CharacterType );
 	void setRandomDet();
 	void update( const Object* );
 

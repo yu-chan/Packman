@@ -95,11 +95,11 @@ void Stage::reset()
 		switch( mData[ i ] )
 		{
 			case 'P' :
-				mCharacters[0].set( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_PLAYER );
+				mCharacters[0].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_PLAYER );
 				x++;
 				break;
 			case 'E' :
-				mCharacters[0].set( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_ENEMY );
+				mCharacters[0].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_ENEMY );
 				x++;
 				break;
 			case '\n' :

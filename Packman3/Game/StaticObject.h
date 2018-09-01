@@ -25,8 +25,7 @@ public:
 	void resetFlag( unsigned );
 	unsigned flag() const;
 
-	void set( int, int, unsigned, ObjectType );
-	void setPosition( int, int );
+	void setStaticObject( int, int, unsigned );
 
 	void draw( const Image* ) const;
 		
