@@ -164,6 +164,10 @@ void Stage::update()
 	int preX, preY;	//プレイヤーが動く前の位置
 	mCharacters[ 0 ].getPosition( &preX, &preY );
 
+	Object* obj = &mCharacters[0];
+	Character* c = dynamic_cast<Character*>(obj);
+	StaticObject* s = dynamic_cast<StaticObject*>(obj);
+
 	//キャラクタの更新
 	for( int i = 0; i < mCharactersNumber; i++ )
 	{

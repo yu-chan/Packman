@@ -39,6 +39,11 @@ public:
 		*y = mY;
 	}
 
+	ObjectType objectType() const
+	{
+		return mObjectType;
+	}
+
 	int convertPixelToInner( const int pos ) const
 	{
 		return pos + OBJECT_HALF_SIZE;

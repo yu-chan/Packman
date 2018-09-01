@@ -20,13 +20,13 @@ public:
 
 	void setCharacter( int, int , CharacterType );
 	void setRandomDet();
-	void update( const Object* );
+	void update( Object* );
 
 	unsigned type() const;
 	void count();
 	
-	void playerMove( const Object* );
-	void enemyMove( const Object* );
+	void playerMove( Object* );
+	void enemyMove( Object* );
 	
 	bool dead() const;
 	bool clear() const;
@@ -43,6 +43,8 @@ private:
 	int mDetY;
 	int mCnt;
 	bool isClear;
+	bool isDetRight;
+	bool isDetUp;
 };
 
 #endif

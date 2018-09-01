@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Image.h"
 #include "Game/Character.h"
+#include "Game/StaticObject.h"
 #include "Singleton/SoundManager.h"
 #include "Singleton/KeyboardManager.h"
 
@@ -8,7 +9,9 @@ Character::Character() :
 mCharacterType( CHARACTERTYPE_NONE ),
 mDetX( 0 ),
 mDetY( 0 ),
-isClear( 0 )
+isClear( false ),
+isDetRight( true ),
+isDetUp( false )
 {
 }
 
@@ -49,7 +52,7 @@ void Character::setRandomDet()
 	}
 }
 
-void Character::update( const Object* obj )
+void Character::update( Object* obj )
 {
 	if( !dead() ) {
 		if( isPlayer() ) {
@@ -95,11 +98,100 @@ bool Character::isEnemy() const
 	return ( mCharacterType == CHARACTERTYPE_ENEMY );
 }
 
-void Character::playerMove( const Object* obj )
+void Character::playerMove( Object* obj )
 {
+	//押したキーにより動く方向を決める
+	if( KeyboardManager::instance()->isOn( KEY_INPUT_RIGHT ) )
+	{ //右矢印キーを押している
+		isDetRight = true;
+		mDetX = 1;
+	}
+	else if( KeyboardManager::instance()->isOn( KEY_INPUT_LEFT ) )
+	{ //左矢印キーを押している
+		isDetRight = false;
+		mDetX = -1;
+	}
+	else if( KeyboardManager::instance()->isOn( KEY_INPUT_UP ) )
+	{ //上矢印キーを押している
+		isDetUp = true;
+		mDetY = -1;
+	}
+	else if( KeyboardManager::instance()->isOn( KEY_INPUT_DOWN ) )
+	{ //下矢印キーを押している
+		isDetUp = false;
+		mDetY = 1;
+	}
+
+	
+	//キャラの周囲のマス
+	int mas[3][3][2] = {
+		{{-1, -1}, {-1,  0}, {-1,  1}},
+		{{ 0, -1}, { 0,  0}, { 0,  1}},
+		{{ 1, -1}, { 1,  0}, { 1,  1}},
+	};
+	//キャラがいるマス
+	int masX = mX / OBJECT_SIZE;
+	int masY = mY / OBJECT_SIZE;
+	//移動後の座標
+	int movedX = mX + mDetX;
+	int movedY = mY + mDetY;
+	//移動した際にオブジェクトにあたっているかどうか
+	bool hitX = false, hitY = false;
+	//動かない物体との衝突判定
+	for( int y = 0; y < 3; y++ )
+	{
+		for( int x = 0; x < 3; x++ )
+		{
+			//キャラが居るマスなので、処理を飛ばす
+			if( x == 1 && y == 1 )
+			{
+				continue;
+			}
+
+			int tmpX = masX + mas[ y ][ x ][ 0 ];
+			int tmpY = masY + mas[ y ][ x ][ 1 ];
+			//X方向に対して、判定する
+			if( collisionDetectionToObject( movedX, mY, obj ) )
+			{
+				hitX = true;
+
+				//ObjectTypeがSTATICの場合
+				/*if( obj->objectType() == ObjectType::STATIC )
+				{
+					StaticObject* sObj = dynamic_cast< StaticObject* >( obj );
+
+				}
+				else if( obj->objectType() == ObjectType::DYANAMIC )
+				{
+				}*/
+			}
+			//Y方向に対して、判定する
+			if( collisionDetectionToObject( mX, movedY, obj ) )
+			{
+				hitY = true;
+			}
+		}
+	}
+	
+	if( ( 0 < movedX && movedX < WINDOW_WIDTH ) && 
+		( 0 < movedY && movedY < WINDOW_HEIGHT ) )
+	{
+			if( hitX && !hitY )
+			{ //Y方向のみ移動できる
+				mY = movedY;
+			}
+			else if( !hitX && hitY )
+			{ //X方向のみ移動できる
+				mX = movedX;
+			}
+			//else if(!hitX && !hitY) { //両方向に移動できる
+			//	mX = movedX;
+			//	mY = movedY;
+			//}
+	}
 }
 
-void Character::enemyMove( const Object* obj )
+void Character::enemyMove( Object* obj )
 {
 }
 
