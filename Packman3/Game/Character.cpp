@@ -112,3 +112,26 @@ void Character::draw( const Image* image ) const
 		image->draw( detX, detY, srcX, srcY, OBJECT_SIZE, OBJECT_SIZE );
 	}
 }
+
+bool Character::collisionDetectionToObject( int movedX, int movedY, Object* obj ) const
+{
+	int objX, objY;
+	obj->getPosition( &objX, &objY );
+
+	
+	int aLeft  = movedX - OBJECT_HALF_SIZE;
+	int aRight = movedX + OBJECT_HALF_SIZE;
+	int bLeft  =   objX - OBJECT_HALF_SIZE;
+	int bRight =   objX + OBJECT_HALF_SIZE;
+	if( (aLeft < bRight) && (aRight > bLeft) ) {
+		int aTop    = movedY - OBJECT_HALF_SIZE;
+		int aBottom = movedY + OBJECT_HALF_SIZE;
+		int bTop    =   objY - OBJECT_HALF_SIZE;
+		int bBottom =   objY + OBJECT_HALF_SIZE;
+		if( (aTop < bBottom) && (aBottom > bTop) ) {
+			return true;
+		}
+	}
+
+	return false;
+}

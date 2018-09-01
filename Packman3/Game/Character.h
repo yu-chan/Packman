@@ -35,6 +35,8 @@ public:
 
 	void draw( const Image* ) const;
 
+	bool collisionDetectionToObject( int, int, Object* ) const;
+
 private:
 	CharacterType mCharacterType;
 	int mDetX;
