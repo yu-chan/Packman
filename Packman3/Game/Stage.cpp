@@ -164,12 +164,13 @@ void Stage::update()
 	int preX, preY;	//プレイヤーが動く前の位置
 	mCharacters[ 0 ].getPosition( &preX, &preY );
 
-	//ToDo : プレイヤーの動きを更新
-
-
-	for( int i = 1; i < mCharactersNumber; i++)
+	//キャラクタの更新
+	for( int i = 0; i < mCharactersNumber; i++ )
 	{
-		//ToDo : 敵の更新
+		for( int j = i + 1; j < mCharactersNumber; j++ )
+		{
+			mCharacters[ i ].update( &mCharacters[ j ] );
+		}
 	}
 }
 

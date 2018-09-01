@@ -20,9 +20,33 @@ void Character::setCharacter( int x, int y, CharacterType characterTyp )
 	mCharacterType = characterTyp;
 }
 
+/*
+“Gê—p
+“®‚­•ûŒü‚ğŒˆ‚ß‚é
+*/
 void Character::setRandomDet()
-	//ToDo : “®‚«‚ğŒˆ‚ß‚é
 {
+	double rnd = rand();
+	//X•ûŒü‚ğŒˆ‚ß‚é
+	if( rnd < 0.5 )
+	{
+		mDetX = -1;
+	}
+	else
+	{
+		mDetX = 1;
+	}
+
+	rnd = rand();
+	//Y•ûŒü‚ğŒˆ‚ß‚é
+	if( rnd < 0.5 )
+	{
+		mDetY = -1;
+	}
+	else
+	{
+		mDetY = 1;
+	}
 }
 
 void Character::update( const Object* obj )
