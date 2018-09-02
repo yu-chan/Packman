@@ -31,11 +31,13 @@ File::~File()
 	mData = 0;
 }
 
+// ファイルのサイズを取得
 int File::size() const
 {
 	return mSize;
 }
 
+// ファイル上のデータを丸ごと取得
 char* File::data() const
 {
 	return mData;

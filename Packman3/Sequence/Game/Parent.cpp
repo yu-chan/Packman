@@ -26,10 +26,10 @@ Parent::~Parent()
 
 void Parent::update( GrandParent* parent )
 {
-	//現在の画面を処理
+	// 現在の画面を処理
 	mChild->update( this );
 
-	//画面遷移種類により、処理が変わる
+	// 画面遷移種類により、処理が変わる
 	switch( mNextSequence )
 	{
 		case NEXT_TITLE:
@@ -61,11 +61,11 @@ void Parent::update( GrandParent* parent )
 			break;
 	}
 	
-	//処理をしておかないと、次へ進めない
+	// 処理をしておかないと、次へ進めない
 	mNextSequence = NEXT_NONE;
 }
 
-//画面遷移を更新
+// 画面遷移を更新
 void Parent::moveToNextSequence( NextSequence next )
 {
 	mNextSequence = next;
@@ -90,12 +90,14 @@ void Parent::startLoading()
 	mStage = new Stage( f.data(), f.size() );
 }
 
+// インスタンス破棄
 void Parent::deleteChild()
 {
 	delete mChild;
 	mChild = 0;
 }
 
+// ステージ取得
 Stage* Parent::stage()
 {
 	return mStage;

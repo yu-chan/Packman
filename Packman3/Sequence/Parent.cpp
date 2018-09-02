@@ -20,10 +20,12 @@ Parent::~Parent()
 	deleteChild();
 }
 
+// ‘JˆÚæ‚ÌŒˆ’è‚·‚é
 void Parent::update()
 {
 	mChild->update( this );
 
+	// ŽŸ‚Ì‰æ–Ê‚É‘JˆÚ‚·‚é
 	switch( mNextSequence )
 	{
 		case NEXT_TITLE:

@@ -17,6 +17,7 @@ isDetUp( false )
 
 Character::~Character() {}
 
+// キャラクターを初期化
 void Character::setCharacter( int x, int y, CharacterType characterTyp )
 {
 	set( x, y,  DYANAMIC );
@@ -52,6 +53,7 @@ void Character::setRandomDet()
 	}
 }
 
+// キャラの動きを更新
 void Character::update( Object* obj )
 {
 	if( !dead() ) {
@@ -63,6 +65,7 @@ void Character::update( Object* obj )
 	}
 }
 
+// キャラのタイプを取得
 unsigned Character::type() const
 {
 	return mCharacterType;
@@ -78,26 +81,34 @@ void Character::count()
 	mCnt++;
 }
 
+// キャラが死んでいるかどうかを返す
 bool Character::dead() const
 {
 	return ( mCharacterType == CHARACTERTYPE_NONE );
 }
 
+// クリアしているかどうかを返す
 bool Character::clear() const
 {
 	return isClear;
 }
 
+// プレイヤーであるかを返す
 bool Character::isPlayer() const
 {
 	return ( mCharacterType == CHARACTERTYPE_PLAYER );
 }
 
+// 的であるかを返す
 bool Character::isEnemy() const
 {
 	return ( mCharacterType == CHARACTERTYPE_ENEMY );
 }
 
+/*
+プレイヤー専用
+プレイヤーを操作する
+*/
 void Character::playerMove( Object* obj )
 {
 	//押したキーにより動く方向を決める
@@ -191,6 +202,10 @@ void Character::playerMove( Object* obj )
 	}
 }
 
+/*
+敵専用
+敵を動かす
+*/
 void Character::enemyMove( Object* obj )
 {
 }
@@ -229,6 +244,7 @@ void Character::draw( const Image* image ) const
 	}
 }
 
+// コリジョン判定
 bool Character::collisionDetectionToObject( int movedX, int movedY, Object* obj ) const
 {
 	int objX, objY;

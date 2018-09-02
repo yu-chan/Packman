@@ -195,11 +195,13 @@ void Stage::draw() const
 	}
 }
 
+// クリアしてるかどうかを返す
 bool Stage::clear()
 {
 	return isClear;
 }
 
+// ゲームオーバかどうかを返す
 bool Stage::gameover()
 {
 	return isGameover;

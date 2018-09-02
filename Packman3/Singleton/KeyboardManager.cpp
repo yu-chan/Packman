@@ -7,6 +7,7 @@ KeyboardManager::KeyboardManager() {}
 
 KeyboardManager::~KeyboardManager() {}
 
+// インスタンス作成
 void KeyboardManager::create()
 {
 	if( !mInstance )
@@ -15,6 +16,7 @@ void KeyboardManager::create()
 	}
 }
 
+// インスタンス破棄
 void KeyboardManager::destroy()
 {
 	if( mInstance )
@@ -24,11 +26,13 @@ void KeyboardManager::destroy()
 	}
 }
 
+// インスタンス取得
 KeyboardManager* KeyboardManager::instance()
 {
 	return mInstance;
 }
 
+// キーが押されているかをチェックする
 bool KeyboardManager::isOn( int inputid )
 {
 	bool flag = false;
@@ -40,18 +44,20 @@ bool KeyboardManager::isOn( int inputid )
 	return flag;
 }
 
+// キーの更新
 void KeyboardManager::updateKey()
 {
 	char stateKey[ 256 ];
+	// キーの状態を取得
 	GetHitKeyStateAll( stateKey );
 	for( int i = 0; i < 256; i++ )
 	{
 		if( stateKey[ i ] != 0 )
-		{
+		{ // キーが押されている
 			key[ i ]++;
 		}
 		else
-		{
+		{ // キーが押されていない
 			key[ i ] = 0;
 		}
 	}

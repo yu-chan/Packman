@@ -15,7 +15,7 @@ private:
 	~KeyboardManager();
 	static KeyboardManager* mInstance;
 
-	int key[ 256 ];
+	int key[ 256 ]; // ƒL[‚Ìí—Ş
 };
 
 #endif

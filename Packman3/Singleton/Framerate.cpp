@@ -9,6 +9,7 @@ Framerate::Framerate() : mStartTime(0), mCnt(0) {}
 
 Framerate::~Framerate() {}
 
+// インスタンス作成
 void Framerate::create()
 {
 	if(!mInstance)
@@ -17,6 +18,7 @@ void Framerate::create()
 	}
 }
 
+// インスタンス破棄
 void Framerate::destroy()
 {
 	if( mInstance )
@@ -26,14 +28,16 @@ void Framerate::destroy()
 	}
 }
 
+// インスタンス取得
 Framerate* Framerate::instance()
 {
 	return mInstance;
 }
 
-//フレームを進める
+// フレームを制御する
 void Framerate::tick()
 {
+	// 決められたフレームになったら、0に戻す
 	if( ( mCnt % FPS ) == 0 )
 	{
 		mStartTime = GetNowCount();

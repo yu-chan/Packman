@@ -12,20 +12,26 @@ mData( 0 )
 
 Image::~Image()
 {
+	/*
+	DXライブラリ関数
+	画像の削除
+	*/
 	DeleteGraph( mData );
 }
 
+// 画像の幅を取得
 int Image::width() const
 {
 	return mWidth;
 }
 
+// 画像の高さを取得
 int Image::height() const
 {
 	return mHeigt;
 }
 
-//画像を丸ごと表示したいときに使う
+// 画像を丸ごと表示したいときに使う
 void Image::draw() const
 {
 	draw( 0, 0, 0, 0, mWidth, mHeigt );

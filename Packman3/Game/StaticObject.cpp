@@ -12,29 +12,31 @@ mY( 0 )
 
 StaticObject::~StaticObject() {}
 
-//マスの種類をチェック
+// マスの種類をチェック
 bool StaticObject::checkFlag( unsigned flag ) const
 {
 	return ( mFlag & flag ) ? true : false;
 }
 
-//マスをセット
+// マスをセット
 void StaticObject::setFlag( unsigned flag )
 {
 	mFlag |= flag;
 }
 
-//マスをリセット
+// マスをリセット
 void StaticObject::resetFlag( unsigned flag )
 {
 	mFlag &= ~flag;
 }
 
+// マスのフラグを返す
 unsigned StaticObject::flag() const
 {
 	return mFlag;
 }
 
+// マスを初期化
 void StaticObject::setStaticObject( int x, int y, unsigned flag )
 {
 	set( x, y, STATIC );

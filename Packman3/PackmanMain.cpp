@@ -10,12 +10,12 @@
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
-	//ウィンドウモードにする
+	// ウィンドウモードにする
 	ChangeWindowMode( TRUE );
 
 	SetWindowSize( WINDOW_WIDTH, WINDOW_HEIGHT );
 
-	//DXライブラリを使用可能な状態にする
+	// DXライブラリを使用可能な状態にする
 	if( DxLib_Init() == -1 )
 	{
 		OutputDebugString( "DxLib_Init()の失敗\n" );
@@ -30,7 +30,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 
 	srand( static_cast< unsigned >( time( NULL ) ) );
 
-	//シングルトンの作成
+	// シングルトンの作成
 	if( !KeyboardManager::instance() )
 	{
 		KeyboardManager::create();
@@ -44,11 +44,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		SoundManager::create();
 	}
 
-	//シーケンス制御するインスタンス作成
+	// シーケンス制御するインスタンス作成
 	Sequence::Parent* parent = new Sequence::Parent();
 
-	while( !KeyboardManager::instance()->isOn( KEY_INPUT_Q ) ) //Qを押したら終了
-	{
+	while( !KeyboardManager::instance()->isOn( KEY_INPUT_Q ) )
+	{ // Qを押したら終了
 		if( ProcessMessage() != 0 )
 		{
 			OutputDebugString( "ProcessMessageでエラーが起きた\n" );
@@ -56,10 +56,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		}
 		KeyboardManager::instance()->updateKey();
 
-		//画面に描画されているものをすべてクリアにする
+		// 画面に描画されているものをすべてクリアにする
 		ClearDrawScreen();
 
-		//ゲームメイン
+		// ゲームメイン
 		parent->update();
 
 		/*
@@ -71,13 +71,12 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		Framerate::instance()->tick();
 	}
 
-	//Sequence::Parent::destroy();
-	//シングルトンの破棄
+	// シングルトンの破棄
 	SoundManager::destroy();
 	Framerate::destroy();
 	KeyboardManager::destroy();
 
-	//DXライブラリの使用を終了する
+	// DXライブラリの使用を終了する
 	DxLib_End();
 
 	return 0;

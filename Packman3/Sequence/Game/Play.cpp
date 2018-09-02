@@ -19,7 +19,7 @@ Play::~Play() {
 void Play::update( Parent* parent )
 {
 	Stage* stage = parent->stage();
-	//クリアもしくはゲームオーバーなら、タイトルに遷移する
+	// クリアもしくはゲームオーバーなら、タイトルに遷移する
 	if( stage->clear() )
 	{
 		parent->moveToNextSequence( Parent::NEXT_CLEAR );
