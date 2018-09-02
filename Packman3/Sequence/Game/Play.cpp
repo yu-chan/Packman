@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "Singleton/KeyboardManager.h"
-//#include "Game/Stage.h"
+#include "Game/Stage.h"
 #include "Sequence/Game/Parent.h"
 #include "Sequence/Game/Play.h"
 
@@ -20,16 +20,18 @@ void Play::update( Parent* parent )
 {
 	Stage* stage = parent->stage();
 	//クリアもしくはゲームオーバーなら、タイトルに遷移する
-	/*if(stage->clear()) {
-		parent->moveToNextSequence(Parent::NEXT_CLEAR);
+	if( stage->clear() )
+	{
+		parent->moveToNextSequence( Parent::NEXT_CLEAR );
 		return;
 	}
-	if(stage->gameover()) {
-		parent->moveToNextSequence(Parent::NEXT_GAMEOVER);
+	if( stage->gameover() )
+	{
+		parent->moveToNextSequence( Parent::NEXT_GAMEOVER );
 	}
 
 	stage->update();
-	stage->draw();*/
+	stage->draw();
 }
 
 }

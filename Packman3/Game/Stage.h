@@ -2,6 +2,7 @@
 #define INCLUDED_GAME_STGE_H
 
 class Image;
+class StaticObject;
 class Character;
 
 class Stage
@@ -26,6 +27,7 @@ private:
 	int mSize;
 	int mWidth;
 	int mHeight;
+	StaticObject** mStaticObjects;
 	Character* mCharacters;
 	int mCharactersNumber;
 	bool isClear;

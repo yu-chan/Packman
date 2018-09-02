@@ -15,19 +15,19 @@ mData( 0 ),
 mSize( size ),
 mWidth( 0 ),
 mHeight( 0 ),
+mStaticObjects( 0 ),
 mCharacters( 0 ),
 mCharactersNumber( 0 ),
 isClear( false ),
 isGameover( false )
 {
-	//ステージ情報
+	// ステージ情報
 	mData = new char[size];
 	for( int i = 0; i < mSize; i++ )
 	{
 		mData[ i ] = stageData[ i ];
 	}
 
-	//ToDo : ここディレクトリを変えるかも
 	mImage = new Image( "data/image/object.png" );
 
 	reset();
@@ -39,30 +39,34 @@ Stage::~Stage()
 	mImage = 0;
 }
 
-//ステージを初期化
+// ステージを初期化
 void Stage::reset()
 {
+	// ステージのサイズを取得
 	setSize();
+	mStaticObjects = new StaticObject*[ mHeight ];
+	for( int i = 0; i < mHeight; i++ )
+	{
+		mStaticObjects[ i ] = new StaticObject[ mWidth ];
+	}
 
-	//ToDo : StaticObjectのセット
-	//staticobject.set
 
-	//一文字ずつ読み込み、その種類より配置するものを決めていく
+	// 一文字ずつ読み込み、その種類より配置するものを決めていく
 	int x = 0, y = 0;
 	for( int i = 0; i < mSize; i++ )
 	{
 		switch( mData[ i ] )
 		{
 			case '0' :
-				//ToDo : staticobjectにセット
+				mStaticObjects[ y ][ x ].setStaticObject( x * OBJECT_SIZE, y * OBJECT_SIZE, StaticObject::FLAG_WALL );
 				x++;
 				break;
 			case '1' :
-				//ToDo : staticobjectにセット
+				mStaticObjects[ y ][ x ].setStaticObject( x * OBJECT_SIZE, y * OBJECT_SIZE, StaticObject::FLAG_FEED );
 				x++;
 				break;
 			case '2' :
-				//ToDo : staticobjectにセット
+				mStaticObjects[ y ][ x ].setStaticObject( x * OBJECT_SIZE, y * OBJECT_SIZE, StaticObject::FLAG_INVINCIBLE );
 				x++;
 				break;
 			case 'P' :
@@ -79,8 +83,7 @@ void Stage::reset()
 		}
 	}
 
-	//ToDo : 変更するかも
-	//キャラの初期化
+	// キャラの初期化
 	if( mCharacters )
 	{
 		delete[] mCharacters;
@@ -147,28 +150,21 @@ void Stage::setSize()
 */
 void Stage::update()
 {
-	//プレイヤーが死んでるなら、処理しない
+	// プレイヤーが死んでるなら、処理しない
 	if( mCharacters[ 0 ].dead() )
 	{
 		isGameover = true;
 		return;
 	}
 
-	//クリアしているなら、処理しない
+	// クリアしているなら、処理しない
 	if( mCharacters[ 0 ].clear() )
 	{
 		isClear = true;
 		return;
 	}
 
-	int preX, preY;	//プレイヤーが動く前の位置
-	mCharacters[ 0 ].getPosition( &preX, &preY );
-
-	Object* obj = &mCharacters[0];
-	Character* c = dynamic_cast<Character*>(obj);
-	StaticObject* s = dynamic_cast<StaticObject*>(obj);
-
-	//キャラクタの更新
+	// キャラクタの更新
 	for( int i = 0; i < mCharactersNumber; i++ )
 	{
 		for( int j = i + 1; j < mCharactersNumber; j++ )
@@ -183,18 +179,28 @@ void Stage::update()
 */
 void Stage::draw() const
 {
-	//動かない物体
+	// 動かない物体
 	for( int y = 0; y < mHeight; y++ )
 	{
 		for( int x = 0; x < mWidth; x++ )
 		{
-			//ToDo : 描画
+			mStaticObjects[ y ][ x ].draw( mImage );
 		}
 	}
 
-	//キャラ
+	// キャラ
 	for( int i = 0; i < mCharactersNumber; i++ )
 	{
-		//ToDo : 描画
+		mCharacters[ i ].draw( mImage );
 	}
+}
+
+bool Stage::clear()
+{
+	return isClear;
+}
+
+bool Stage::gameover()
+{
+	return isGameover;
 }

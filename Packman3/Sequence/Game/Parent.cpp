@@ -73,7 +73,7 @@ void Parent::moveToNextSequence( NextSequence next )
 
 void Parent::draw() const
 {
-	//mStage->draw();
+	mStage->draw();
 }
 
 bool Parent::isCleared() const
@@ -87,7 +87,7 @@ void Parent::startLoading()
 	delete mStage;
 	mStage = 0;
 	File f( "data/stage/stageData.txt" );
-	//mStage = new Stage(f.data(), f.size());
+	mStage = new Stage( f.data(), f.size() );
 }
 
 void Parent::deleteChild()
