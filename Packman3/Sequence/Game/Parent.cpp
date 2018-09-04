@@ -84,8 +84,11 @@ bool Parent::isCleared() const
 //ステージ情報を読み込む
 void Parent::startLoading()
 {
-	delete mStage;
-	mStage = 0;
+	if( mStage )
+	{
+		delete mStage;
+		mStage = 0;
+	}
 	File f( "data/stage/stageData.txt" );
 	mStage = new Stage( f.data(), f.size() );
 }

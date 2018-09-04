@@ -31,8 +31,8 @@ public:
 		
 private:
 	unsigned mFlag;
-	int mX;
-	int mY;
+	//int mX;
+	//int mY;
 };
 
 #endif

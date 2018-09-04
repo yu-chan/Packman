@@ -4,9 +4,7 @@
 #include "Game/StaticObject.h"
 
 StaticObject::StaticObject() :
-mFlag( 0 ),
-mX( 0 ),
-mY( 0 )
+mFlag( 0 )
 {
 }
 
@@ -54,10 +52,12 @@ void StaticObject::draw( const Image* image ) const
 	switch( mFlag )
 	{
 		case FLAG_WALL :
-			//ToDo : ‰æ‘œ‚ð—pˆÓ‚·‚é
+			srcX = 0;
+			srcY = 5;
 			break;
 		case FLAG_FEED :
-			//ToDo : ‰æ‘œ‚ð—pˆÓ‚·‚é
+			srcX = 1;
+			srcY = 5;
 			break;
 		case FLAG_INVINCIBLE :
 			//ToDo : ‰æ‘œ‚ð—pˆÓ‚·‚é

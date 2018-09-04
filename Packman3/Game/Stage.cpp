@@ -4,6 +4,8 @@
 #include "Game/Stage.h"
 #include "Game/Character.h"
 #include "Game/StaticObject.h"
+#include <sstream>
+using namespace std;
 
 /*
 stageData : ステージ情報
@@ -37,6 +39,10 @@ Stage::~Stage()
 {
 	delete mImage;
 	mImage = 0;
+	delete[] mData;
+	mData = 0;
+	delete[] mCharacters;
+	mCharacters = 0;
 }
 
 // ステージを初期化
@@ -79,6 +85,7 @@ void Stage::reset()
 				y++;
 				break;
 			default :
+				x++;
 				break;
 		}
 	}
@@ -114,6 +121,7 @@ void Stage::reset()
 				break;
 		}
 	}
+	OutputDebugString("stage:reset");
 }
 
 /*
@@ -129,10 +137,6 @@ void Stage::setSize()
 	{
 		switch( mData[ i ] )
 		{
-			case '0' :
-			case '1' :
-			case '2' :
-				x++;
 			case '\n' :
 				y++;
 				mWidth = ( mWidth < x ) ? x : mWidth;
@@ -140,6 +144,7 @@ void Stage::setSize()
 				x = 0;
 				break;
 			default :
+				x++;
 				break;
 		}
 	}
@@ -183,7 +188,7 @@ void Stage::draw() const
 	for( int y = 0; y < mHeight; y++ )
 	{
 		for( int x = 0; x < mWidth; x++ )
-		{
+		{	
 			mStaticObjects[ y ][ x ].draw( mImage );
 		}
 	}
