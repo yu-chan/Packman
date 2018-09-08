@@ -116,20 +116,24 @@ void Character::playerMove( Object* obj )
 	{ //右矢印キーを押している
 		isDetRight = true;
 		mDetX = 1;
+		mDetY = 0;
 	}
 	else if( KeyboardManager::instance()->isOn( KEY_INPUT_LEFT ) )
 	{ //左矢印キーを押している
 		isDetRight = false;
 		mDetX = -1;
+		mDetY = 0;
 	}
 	else if( KeyboardManager::instance()->isOn( KEY_INPUT_UP ) )
 	{ //上矢印キーを押している
 		isDetUp = true;
+		mDetX = 0;
 		mDetY = -1;
 	}
 	else if( KeyboardManager::instance()->isOn( KEY_INPUT_DOWN ) )
 	{ //下矢印キーを押している
 		isDetUp = false;
+		mDetX = 0;
 		mDetY = 1;
 	}
 
@@ -230,11 +234,56 @@ void Character::draw( const Image* image ) const
 	int tmpIndex = mCnt / ANIMATION_INTERVAL;
 	switch ( mCharacterType )
 	{
-		case CHARACTERTYPE_PLAYER :
-			//ToDo : 画像を用意する
+			srcX = 0;
+			if( tmpIndex % 2 == 0 )			// 丸くなる
+			{
+				srcX = 1;
+				srcY = 0;
+			}
+			else							// 口が開く
+			{
+				if( mDetY == 0 )
+				{
+					if( mDetX > 0 )			// 右
+					{
+						srcY = 0;
+					}
+					else if( mDetX < 0 )	// 左
+					{
+						srcY = 1;
+					}
+				}
+				else if( mDetY < 0 )
+				{
+					srcY = 2;				// 上
+				}
+				else
+				{
+					srcY = 3;				// 下
+				}
+			}
 			break;
 		case CHARACTERTYPE_ENEMY :
-			//ToDo : 画像を用意する
+			srcY = 4;
+			if( mDetY == 0 )
+			{
+				if( mDetX < 0 )			// 左
+				{
+					srcX = 0;
+				}
+				else if( mDetX > 0 )	// 右
+				{
+					srcX = 1;
+				}
+			}
+			else if( mDetY < 0 )
+			{
+				srcX = 2;				// 上
+			}
+			else
+			{
+				srcX = 3;				// 下
+			}
 			break;
 	}
 
@@ -266,4 +315,9 @@ bool Character::collisionDetectionToObject( int movedX, int movedY, Object* obj 
 	}
 
 	return false;
+}
+
+void Character::dieCharacter()
+{
+	mCharacterType = CHARACTERTYPE_NONE;
 }

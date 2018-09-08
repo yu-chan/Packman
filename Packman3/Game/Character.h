@@ -37,6 +37,8 @@ public:
 
 	bool collisionDetectionToObject( int, int, Object* ) const;
 
+	void dieCharacter();
+
 private:
 	CharacterType mCharacterType;
 	int mDetX;
