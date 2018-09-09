@@ -18,7 +18,7 @@ public:
 	enum ObjectType
 	{
 		STATIC,
-		DYANAMIC,
+		DYNAMIC,
 	};
 
 	void set( int x, int y, const ObjectType objTyp )

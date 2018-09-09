@@ -105,11 +105,12 @@ void Stage::reset()
 		switch( mData[ i ] )
 		{
 			case 'P' :
-				mCharacters[0].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_PLAYER );
+				mCharacters[ 0 ].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_PLAYER );
 				x++;
 				break;
 			case 'E' :
-				mCharacters[0].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_ENEMY );
+				mCharacters[ j ].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_ENEMY );
+				j++;
 				x++;
 				break;
 			case '\n' :
@@ -121,7 +122,6 @@ void Stage::reset()
 				break;
 		}
 	}
-	OutputDebugString("stage:reset");
 }
 
 /*
@@ -169,7 +169,33 @@ void Stage::update()
 		return;
 	}
 
-	// キャラクタの更新
+	/*
+	CharacterとStaticObject同士のコリジョン判定のために、引数を渡す
+	*/
+	for( int i = 0; i < mCharactersNumber; i++ )
+	{
+		int charaX, charaY; // キャラ座標
+		mCharacters[ i ].getPosition( &charaX, &charaY );
+		int charaMasX = charaX / OBJECT_SIZE;
+		int charaMasY = charaY / OBJECT_SIZE;
+		// キャラの上下左右4マス
+		int charaAroundMas[ 4 ][ 2 ] = {
+			{  1,  0 }, // 右
+			{ -1,  0 }, // 左
+			{  0, -1 }, // 上
+			{  0,  1 }  // 下
+		};
+		for( int j = 0; j < 4; j++ )
+		{
+			int tmpX = charaMasX + charaAroundMas[ j ][ 0 ];
+			int tmpY = charaMasY + charaAroundMas[ j ][ 1 ];
+			mCharacters[ i ].update( &mStaticObjects[ tmpY ][ tmpX ] );
+		}
+	}
+
+	/*
+	Character同士のコリジョン判定のために、引数を渡す
+	*/
 	for( int i = 0; i < mCharactersNumber; i++ )
 	{
 		for( int j = i + 1; j < mCharactersNumber; j++ )

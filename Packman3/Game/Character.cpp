@@ -9,6 +9,8 @@ Character::Character() :
 mCharacterType( CHARACTERTYPE_NONE ),
 mDetX( 0 ),
 mDetY( 0 ),
+mCnt( 0 ),
+mStaticCollisionCnt( 0 ),
 isClear( false ),
 isDetRight( true ),
 isDetUp( false )
@@ -20,7 +22,7 @@ Character::~Character() {}
 // キャラクターを初期化
 void Character::setCharacter( int x, int y, CharacterType characterTyp )
 {
-	set( x, y,  DYANAMIC );
+	set( x, y,  DYNAMIC );
 	mCharacterType = characterTyp;
 }
 
@@ -62,6 +64,7 @@ void Character::update( Object* obj )
 		} else if( isEnemy() ) {
 			enemyMove( obj );
 		}
+		mCnt++;
 	}
 }
 
@@ -111,82 +114,88 @@ bool Character::isEnemy() const
 */
 void Character::playerMove( Object* obj )
 {
-	//押したキーにより動く方向を決める
+	// 押したキーにより動く方向を決める
 	if( KeyboardManager::instance()->isOn( KEY_INPUT_RIGHT ) )
-	{ //右矢印キーを押している
+	{ // 右矢印キーを押している
 		isDetRight = true;
 		mDetX = 1;
 		mDetY = 0;
 	}
 	else if( KeyboardManager::instance()->isOn( KEY_INPUT_LEFT ) )
-	{ //左矢印キーを押している
+	{ // 左矢印キーを押している
 		isDetRight = false;
 		mDetX = -1;
 		mDetY = 0;
 	}
 	else if( KeyboardManager::instance()->isOn( KEY_INPUT_UP ) )
-	{ //上矢印キーを押している
+	{ // 上矢印キーを押している
 		isDetUp = true;
 		mDetX = 0;
 		mDetY = -1;
 	}
 	else if( KeyboardManager::instance()->isOn( KEY_INPUT_DOWN ) )
-	{ //下矢印キーを押している
+	{ // 下矢印キーを押している
 		isDetUp = false;
 		mDetX = 0;
 		mDetY = 1;
 	}
 
-	
-	//キャラの周囲のマス
-	int mas[3][3][2] = {
-		{{-1, -1}, {-1,  0}, {-1,  1}},
-		{{ 0, -1}, { 0,  0}, { 0,  1}},
-		{{ 1, -1}, { 1,  0}, { 1,  1}},
-	};
-	//キャラがいるマス
-	int masX = mX / OBJECT_SIZE;
-	int masY = mY / OBJECT_SIZE;
 	//移動後の座標
 	int movedX = mX + mDetX;
 	int movedY = mY + mDetY;
 	//移動した際にオブジェクトにあたっているかどうか
 	bool hitX = false, hitY = false;
-	//動かない物体との衝突判定
-	for( int y = 0; y < 3; y++ )
+	if( obj->objectType() == STATIC )
 	{
-		for( int x = 0; x < 3; x++ )
+	}
+	else if( obj->objectType() == DYNAMIC )
+	{
+		// X方向に対して
+		if( collisionDetectionToObject( movedX, mY, obj ) )
 		{
-			//キャラが居るマスなので、処理を飛ばす
-			if( x == 1 && y == 1 )
-			{
-				continue;
-			}
-
-			int tmpX = masX + mas[ y ][ x ][ 0 ];
-			int tmpY = masY + mas[ y ][ x ][ 1 ];
-			//X方向に対して、判定する
-			if( collisionDetectionToObject( movedX, mY, obj ) )
-			{
-				hitX = true;
-
-				//ObjectTypeがSTATICの場合
-				/*if( obj->objectType() == ObjectType::STATIC )
-				{
-					StaticObject* sObj = dynamic_cast< StaticObject* >( obj );
-
-				}
-				else if( obj->objectType() == ObjectType::DYANAMIC )
-				{
-				}*/
-			}
-			//Y方向に対して、判定する
-			if( collisionDetectionToObject( mX, movedY, obj ) )
-			{
-				hitY = true;
-			}
+			hitX = true;
+		}
+		// Y方向に対して
+		if( collisionDetectionToObject( mY, movedY, obj ) )
+		{
+			hitY = true;
 		}
 	}
+	//動かない物体との衝突判定
+	//for( int y = 0; y < 3; y++ )
+	//{
+	//	for( int x = 0; x < 3; x++ )
+	//	{
+	//		//キャラが居るマスなので、処理を飛ばす
+	//		if( x == 1 && y == 1 )
+	//		{
+	//			continue;
+	//		}
+
+	//		int tmpX = masX + mas[ y ][ x ][ 0 ];
+	//		int tmpY = masY + mas[ y ][ x ][ 1 ];
+	//		//X方向に対して、判定する
+	//		if( collisionDetectionToObject( movedX, mY, obj ) )
+	//		{
+	//			hitX = true;
+
+	//			//ObjectTypeがSTATICの場合
+	//			if( obj->objectType() == ObjectType::STATIC )
+	//			{
+	//				StaticObject* sObj = dynamic_cast< StaticObject* >( obj );
+
+	//			}
+	//			else if( obj->objectType() == ObjectType::DYANAMIC )
+	//			{
+	//			}
+	//		}
+	//		//Y方向に対して、判定する
+	//		if( collisionDetectionToObject( mX, movedY, obj ) )
+	//		{
+	//			hitY = true;
+	//		}
+	//	}
+	//}
 	
 	if( ( 0 < movedX && movedX < WINDOW_WIDTH ) && 
 		( 0 < movedY && movedY < WINDOW_HEIGHT ) )
@@ -234,7 +243,7 @@ void Character::draw( const Image* image ) const
 	int tmpIndex = mCnt / ANIMATION_INTERVAL;
 	switch ( mCharacterType )
 	{
-			srcX = 0;
+		case CHARACTERTYPE_PLAYER :
 			if( tmpIndex % 2 == 0 )			// 丸くなる
 			{
 				srcX = 1;
@@ -242,6 +251,7 @@ void Character::draw( const Image* image ) const
 			}
 			else							// 口が開く
 			{
+				srcX = 0;
 				if( mDetY == 0 )
 				{
 					if( mDetX > 0 )			// 右
@@ -265,6 +275,7 @@ void Character::draw( const Image* image ) const
 			break;
 		case CHARACTERTYPE_ENEMY :
 			srcY = 4;
+			srcX = 0; // ToDo : あとで消す
 			if( mDetY == 0 )
 			{
 				if( mDetX < 0 )			// 左

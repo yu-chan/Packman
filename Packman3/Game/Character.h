@@ -44,6 +44,7 @@ private:
 	int mDetX;
 	int mDetY;
 	int mCnt;
+	int mStaticCollisionCnt;
 	bool isClear;
 	bool isDetRight;
 	bool isDetUp;
