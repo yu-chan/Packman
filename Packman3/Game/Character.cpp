@@ -27,6 +27,15 @@ void Character::setCharacter( int x, int y, CharacterType characterTyp )
 }
 
 /*
+プレイヤー専用
+*/
+void Character::setDet( int detX, int detY )
+{
+	mDetX = detX;
+	mDetY = detY;
+}
+
+/*
 敵専用
 動く方向を決める
 */
@@ -55,17 +64,11 @@ void Character::setRandomDet()
 	}
 }
 
-// キャラの動きを更新
-void Character::update( Object* obj )
+//キャラの方向スピードを取得
+void Character::getDet( int* detX, int* detY )
 {
-	if( !dead() ) {
-		if( isPlayer() ) {
-			playerMove( obj );
-		} else if( isEnemy() ) {
-			enemyMove( obj );
-		}
-		mCnt++;
-	}
+	*detX = mDetX;
+	*detY = mDetY;
 }
 
 // キャラのタイプを取得
@@ -84,28 +87,25 @@ void Character::count()
 	mCnt++;
 }
 
-// キャラが死んでいるかどうかを返す
-bool Character::dead() const
+// キャラの動きを更新
+void Character::update( Object* obj )
 {
-	return ( mCharacterType == CHARACTERTYPE_NONE );
+	if( !dead() ) {
+		if( isPlayer() ) {
+			playerMove( obj );
+		} else if( isEnemy() ) {
+			enemyMove( obj );
+		}
+		mCnt++;
+	}
 }
 
-// クリアしているかどうかを返す
-bool Character::clear() const
+void Character::update()
 {
-	return isClear;
-}
-
-// プレイヤーであるかを返す
-bool Character::isPlayer() const
-{
-	return ( mCharacterType == CHARACTERTYPE_PLAYER );
-}
-
-// 的であるかを返す
-bool Character::isEnemy() const
-{
-	return ( mCharacterType == CHARACTERTYPE_ENEMY );
+	if( !dead() ) {
+		move();
+		mCnt++;
+	}
 }
 
 /*
@@ -215,12 +215,42 @@ void Character::playerMove( Object* obj )
 	}
 }
 
+void Character::move()
+{
+	mX += mDetX;
+	mY += mDetY;
+}
+
 /*
 敵専用
 敵を動かす
 */
 void Character::enemyMove( Object* obj )
 {
+}
+
+// キャラが死んでいるかどうかを返す
+bool Character::dead() const
+{
+	return ( mCharacterType == CHARACTERTYPE_NONE );
+}
+
+// クリアしているかどうかを返す
+bool Character::clear() const
+{
+	return isClear;
+}
+
+// プレイヤーであるかを返す
+bool Character::isPlayer() const
+{
+	return ( mCharacterType == CHARACTERTYPE_PLAYER );
+}
+
+// 的であるかを返す
+bool Character::isEnemy() const
+{
+	return ( mCharacterType == CHARACTERTYPE_ENEMY );
 }
 
 void Character::draw( const Image* image ) const
@@ -315,12 +345,12 @@ bool Character::collisionDetectionToObject( int movedX, int movedY, Object* obj 
 	int aRight = movedX + OBJECT_HALF_SIZE;
 	int bLeft  =   objX - OBJECT_HALF_SIZE;
 	int bRight =   objX + OBJECT_HALF_SIZE;
-	if( (aLeft < bRight) && (aRight > bLeft) ) {
+	if( ( aLeft < bRight ) && ( aRight > bLeft ) ) {
 		int aTop    = movedY - OBJECT_HALF_SIZE;
 		int aBottom = movedY + OBJECT_HALF_SIZE;
 		int bTop    =   objY - OBJECT_HALF_SIZE;
 		int bBottom =   objY + OBJECT_HALF_SIZE;
-		if( (aTop < bBottom) && (aBottom > bTop) ) {
+		if( ( aTop < bBottom ) && ( aBottom > bTop ) ) {
 			return true;
 		}
 	}

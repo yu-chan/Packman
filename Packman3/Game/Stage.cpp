@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Common.h"
 #include "Image.h"
+#include "Singleton/KeyboardManager.h"
 #include "Game/Stage.h"
 #include "Game/Character.h"
 #include "Game/StaticObject.h"
@@ -169,27 +170,99 @@ void Stage::update()
 		return;
 	}
 
-	/*
-	CharacterとStaticObject同士のコリジョン判定のために、引数を渡す
-	*/
+	// プレイヤーの方向スピードをセット
+	setPlayerDet();
+
+	// コリジョン判定
 	for( int i = 0; i < mCharactersNumber; i++ )
 	{
-		int charaX, charaY; // キャラ座標
+		int charaX, charaY;			// キャラ座標
 		mCharacters[ i ].getPosition( &charaX, &charaY );
+		int detX, detY;				// キャラの方向スピード
+		mCharacters[ i ].getDet( &detX, &detY );
+		int detMasX, detMasY;		// キャラのいるマスから1マス先にあるマス
+		detMasX = detMasY = 0;
+		if( detY == 0 )
+		{
+			if( detX > 0 )
+			{
+				detMasX = 1;		// 右マス
+			}
+			else if( detX < 0 )
+			{
+				detMasX = -1;		// 左マス
+			}
+		}
+		else if( detY > 0 )
+		{
+			detMasY = 1;			// 下マス
+		}
+		else if( detY < 0 )
+		{
+			detMasY = -1;			// 上マス
+		}
+
 		int charaMasX = charaX / OBJECT_SIZE;
 		int charaMasY = charaY / OBJECT_SIZE;
-		// キャラの上下左右4マス
-		int charaAroundMas[ 4 ][ 2 ] = {
-			{  1,  0 }, // 右
-			{ -1,  0 }, // 左
-			{  0, -1 }, // 上
-			{  0,  1 }  // 下
-		};
-		for( int j = 0; j < 4; j++ )
+		int charaDetMasX = charaMasX + detMasX;
+		int charaDetMasY = charaMasY + detMasY;
+		int movedX = charaX + detX;	// 移動後のX座標
+		int movedY = charaY + detY;	// 移動後のY座標
+
+		bool hitWall = false;
+		StaticObject* sObj = &mStaticObjects[ charaDetMasY ][ charaDetMasX ]; // 移動後のStaticObject
+		// StaticObjectとのコリジョン判定
+		if( sObj->flag() != StaticObject::FLAG_NONE ) // 移動先にStaticObjectがある
 		{
-			int tmpX = charaMasX + charaAroundMas[ j ][ 0 ];
-			int tmpY = charaMasY + charaAroundMas[ j ][ 1 ];
-			mCharacters[ i ].update( &mStaticObjects[ tmpY ][ tmpX ] );
+			if( mCharacters[ i ].collisionDetectionToObject( movedX, movedY, sObj ) )
+			{
+				if( sObj->flag() != StaticObject::FLAG_WALL )
+				{
+					if( mCharacters[ i ].type() == Character::CHARACTERTYPE_PLAYER )
+					{
+						unsigned flag = sObj->flag();
+						sObj->resetFlag( flag );
+					}
+					//mCharacters[ i ].update();
+				}
+				else
+				{
+					hitWall = true;
+					// ToDo : 敵は方向転換
+				}
+			}
+			else
+			{
+				//mCharacters[ i ].update();
+			}
+		}
+		else // 移動先にStaticObjectがない
+		{
+			//mCharacters[ i ].update();
+		}
+
+		bool hitCharacter = false;
+		for( int j = i + 1; j < mCharactersNumber; j++ )
+		{
+			Character* chara = &mCharacters[ j ];
+			if( mCharacters[ i ].collisionDetectionToObject( movedX, movedY, chara ) )
+			{
+				hitCharacter = true;
+				if( mCharacters[ i ].type() == Character::CHARACTERTYPE_PLAYER )
+				{
+					mCharacters[ i ].dieCharacter();
+				}
+			}
+		}
+
+		// プレイヤーは常にスクリーンにいる必要がある
+		if((OBJECT_HALF_SIZE < movedX && movedX < WINDOW_WIDTH  - OBJECT_HALF_SIZE) && 
+		(OBJECT_HALF_SIZE < movedY && movedY < WINDOW_HEIGHT - OBJECT_HALF_SIZE))
+		{
+			if( !hitWall & !hitCharacter )
+			{
+				mCharacters[ i ].update();
+			}
 		}
 	}
 
@@ -200,9 +273,46 @@ void Stage::update()
 	{
 		for( int j = i + 1; j < mCharactersNumber; j++ )
 		{
-			mCharacters[ i ].update( &mCharacters[ j ] );
+			Character* chara = &mCharacters[ j ];
+
+			// ToDo : キャラの更新
+			//mCharacters[ i ].update( &mCharacters[ j ] );
+			//mCharacters[ i ].update();
 		}
 	}
+}
+
+/*
+キーボードの矢印キーの入力状態により、
+プレイヤーの方向スピードを決める
+*/
+void Stage::setPlayerDet()
+{
+	int detX = 0;
+	int detY = 0;
+	// 押したキーにより動く方向を決める
+	if( KeyboardManager::instance()->isOn( KEY_INPUT_RIGHT ) )
+	{ // 右矢印キーを押している
+		detX = 1;
+		detY = 0;
+	}
+	else if( KeyboardManager::instance()->isOn( KEY_INPUT_LEFT ) )
+	{ // 左矢印キーを押している
+		detX = -1;
+		detY = 0;
+	}
+	else if( KeyboardManager::instance()->isOn( KEY_INPUT_UP ) )
+	{ // 上矢印キーを押している
+		detX = 0;
+		detY = -1;
+	}
+	else if( KeyboardManager::instance()->isOn( KEY_INPUT_DOWN ) )
+	{ // 下矢印キーを押している
+		detX = 0;
+		detY = 1;
+	}
+
+	mCharacters[ 0 ].setDet( detX, detY );
 }
 
 /*

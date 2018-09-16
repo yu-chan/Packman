@@ -19,14 +19,18 @@ public:
 	};
 
 	void setCharacter( int, int , CharacterType );
+	void setDet( int, int );
 	void setRandomDet();
-	void update( Object* );
+	void getDet( int*, int* );
 
 	unsigned type() const;
 	void count();
 	
+	void update( Object* );
 	void playerMove( Object* );
 	void enemyMove( Object* );
+	void update();
+	void move();
 	
 	bool dead() const;
 	bool clear() const;

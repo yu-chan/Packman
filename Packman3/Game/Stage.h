@@ -15,6 +15,7 @@ public:
 	void setSize();
 
 	void update();
+	void setPlayerDet();
 
 	void draw() const;
 
