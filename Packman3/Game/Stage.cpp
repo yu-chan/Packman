@@ -228,21 +228,8 @@ void Stage::update()
 				else
 				{
 					hitWall = true;
-					// ToDo : 敵は方向転換
-					if( mCharacters[ i ].type() == Character::CHARACTERTYPE_ENEMY )
-					{
-						mCharacters[ i ].setRandomDet();
-					}
 				}
 			}
-			else
-			{
-				//mCharacters[ i ].update();
-			}
-		}
-		else // 移動先にStaticObjectがない
-		{
-			//mCharacters[ i ].update();
 		}
 
 		bool hitCharacter = false;
@@ -273,21 +260,6 @@ void Stage::update()
 			}
 		}
 	}
-
-	/*
-	Character同士のコリジョン判定のために、引数を渡す
-	*/
-	//for( int i = 0; i < mCharactersNumber; i++ )
-	//{
-	//	for( int j = i + 1; j < mCharactersNumber; j++ )
-	//	{
-	//		Character* chara = &mCharacters[ j ];
-
-	//		// ToDo : キャラの更新
-	//		//mCharacters[ i ].update( &mCharacters[ j ] );
-	//		//mCharacters[ i ].update();
-	//	}
-	//}
 }
 
 /*

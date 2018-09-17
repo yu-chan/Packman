@@ -68,39 +68,28 @@ void Character::setDet( int detX, int detY )
 */
 void Character::setRandomDet()
 {
-	double rnd = rand();
+	int rnd = rand() % 100;
 	//X方向を決める
-	if( rnd < 0.25 )		// 右
+	if( rnd < 25 )		// 右
 	{
 		mDetX = 1;
 		mDetY = 0;
 	}
-	else if( rnd < 0.5 )	// 左
+	else if( 25 <= rnd && rnd < 50 )	// 左
 	{
 		mDetX = -1;
 		mDetY = 0;
 	}
-	else if( rnd < 0.75 )	// 上
+	else if( 50 <= rnd && rnd < 75 )	// 上
 	{
 		mDetX = 0;
 		mDetY = -1;
 	}
-	else					// 下
+	else if( 75 <= rnd )					// 下
 	{
 		mDetX = 0;
 		mDetY = 1;
 	}
-
-	//rnd = rand();
-	////Y方向を決める
-	//if( rnd < 0.5 )
-	//{
-	//	mDetY = -1;
-	//}
-	//else
-	//{
-	//	mDetY = 1;
-	//}
 }
 
 //キャラの方向スピードを取得
@@ -204,18 +193,14 @@ void Character::playerMove( Object* obj )
 	if( ( 0 < movedX && movedX < WINDOW_WIDTH ) && 
 		( 0 < movedY && movedY < WINDOW_HEIGHT ) )
 	{
-			if( hitX && !hitY )
-			{ //Y方向のみ移動できる
-				mY = movedY;
-			}
-			else if( !hitX && hitY )
-			{ //X方向のみ移動できる
-				mX = movedX;
-			}
-			//else if(!hitX && !hitY) { //両方向に移動できる
-			//	mX = movedX;
-			//	mY = movedY;
-			//}
+		if( hitX && !hitY )
+		{ //Y方向のみ移動できる
+			mY = movedY;
+		}
+		else if( !hitX && hitY )
+		{ //X方向のみ移動できる
+			mX = movedX;
+		}
 	}
 }
 
@@ -331,12 +316,14 @@ bool Character::collisionDetectionToObject( int movedX, int movedY, Object* obj 
 	int aRight = movedX + OBJECT_HALF_SIZE;
 	int bLeft  =   objX - OBJECT_HALF_SIZE;
 	int bRight =   objX + OBJECT_HALF_SIZE;
-	if( ( aLeft < bRight ) && ( aRight > bLeft ) ) {
+	if( ( aLeft < bRight ) && ( aRight > bLeft ) )
+	{
 		int aTop    = movedY - OBJECT_HALF_SIZE;
 		int aBottom = movedY + OBJECT_HALF_SIZE;
 		int bTop    =   objY - OBJECT_HALF_SIZE;
 		int bBottom =   objY + OBJECT_HALF_SIZE;
-		if( ( aTop < bBottom ) && ( aBottom > bTop ) ) {
+		if( ( aTop < bBottom ) && ( aBottom > bTop ) )
+		{
 			return true;
 		}
 	}

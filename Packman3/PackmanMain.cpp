@@ -28,7 +28,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	*/
 	SetDrawScreen( DX_SCREEN_BACK );
 
-	srand( static_cast< unsigned >( time( NULL ) ) );
+	//srand( static_cast< unsigned int >( time( NULL ) ) );
+	srand((unsigned int)time(NULL));
 
 	// ƒVƒ“ƒOƒ‹ƒgƒ“‚Ìì¬
 	if( !KeyboardManager::instance() )
