@@ -48,7 +48,7 @@ private:
 	int mDetX;
 	int mDetY;
 	int mCnt;
-	int mStaticCollisionCnt;
+	int mImageSrc;
 	bool isClear;
 	bool isDetRight;
 	bool isDetUp;

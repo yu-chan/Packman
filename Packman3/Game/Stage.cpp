@@ -111,6 +111,7 @@ void Stage::reset()
 				break;
 			case 'E' :
 				mCharacters[ j ].setCharacter( x * OBJECT_SIZE , y * OBJECT_SIZE, Character::CHARACTERTYPE_ENEMY );
+				mCharacters[ j ].setRandomDet();
 				j++;
 				x++;
 				break;
@@ -223,12 +224,15 @@ void Stage::update()
 						unsigned flag = sObj->flag();
 						sObj->resetFlag( flag );
 					}
-					//mCharacters[ i ].update();
 				}
 				else
 				{
 					hitWall = true;
 					// ToDo : 敵は方向転換
+					if( mCharacters[ i ].type() == Character::CHARACTERTYPE_ENEMY )
+					{
+						mCharacters[ i ].setRandomDet();
+					}
 				}
 			}
 			else
@@ -263,23 +267,27 @@ void Stage::update()
 			{
 				mCharacters[ i ].update();
 			}
+			else if( hitWall && mCharacters[ i ].type() == Character::CHARACTERTYPE_ENEMY )
+			{
+				mCharacters[ i ].setRandomDet();
+			}
 		}
 	}
 
 	/*
 	Character同士のコリジョン判定のために、引数を渡す
 	*/
-	for( int i = 0; i < mCharactersNumber; i++ )
-	{
-		for( int j = i + 1; j < mCharactersNumber; j++ )
-		{
-			Character* chara = &mCharacters[ j ];
+	//for( int i = 0; i < mCharactersNumber; i++ )
+	//{
+	//	for( int j = i + 1; j < mCharactersNumber; j++ )
+	//	{
+	//		Character* chara = &mCharacters[ j ];
 
-			// ToDo : キャラの更新
-			//mCharacters[ i ].update( &mCharacters[ j ] );
-			//mCharacters[ i ].update();
-		}
-	}
+	//		// ToDo : キャラの更新
+	//		//mCharacters[ i ].update( &mCharacters[ j ] );
+	//		//mCharacters[ i ].update();
+	//	}
+	//}
 }
 
 /*

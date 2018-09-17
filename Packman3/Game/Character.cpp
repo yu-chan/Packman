@@ -10,7 +10,7 @@ mCharacterType( CHARACTERTYPE_NONE ),
 mDetX( 0 ),
 mDetY( 0 ),
 mCnt( 0 ),
-mStaticCollisionCnt( 0 ),
+mImageSrc( 2 ),
 isClear( false ),
 isDetRight( true ),
 isDetUp( false )
@@ -28,11 +28,38 @@ void Character::setCharacter( int x, int y, CharacterType characterTyp )
 
 /*
 プレイヤー専用
+矢印キーの入力状態により、方向スピードを決める
 */
 void Character::setDet( int detX, int detY )
 {
 	mDetX = detX;
 	mDetY = detY;
+
+	/*
+	draw関数で口の開閉のアニメーションを実装している
+	しかし、矢印キーを押していない場合、画像がちかちかする
+	また、停止している間は、直前の矢印キーに対応する方向を向ける必要がある
+	したがって、向きを保持する変数を用意する必要がある
+	*/
+	if( mDetY == 0 )
+	{
+		if( mDetX > 0 )
+		{
+			mImageSrc = 0;	// 右
+		}
+		else if( mDetX < 0 )
+		{
+			mImageSrc = 1;	// 左
+		}
+	}
+	else if( mDetY < 0 )
+	{
+		mImageSrc = 2;		// 上
+	}
+	else if( mDetY > 0 )
+	{
+		mImageSrc = 3;		// 下
+	}
 }
 
 /*
@@ -43,25 +70,37 @@ void Character::setRandomDet()
 {
 	double rnd = rand();
 	//X方向を決める
-	if( rnd < 0.5 )
-	{
-		mDetX = -1;
-	}
-	else
+	if( rnd < 0.25 )		// 右
 	{
 		mDetX = 1;
+		mDetY = 0;
 	}
-
-	rnd = rand();
-	//Y方向を決める
-	if( rnd < 0.5 )
+	else if( rnd < 0.5 )	// 左
 	{
+		mDetX = -1;
+		mDetY = 0;
+	}
+	else if( rnd < 0.75 )	// 上
+	{
+		mDetX = 0;
 		mDetY = -1;
 	}
-	else
+	else					// 下
 	{
+		mDetX = 0;
 		mDetY = 1;
 	}
+
+	//rnd = rand();
+	////Y方向を決める
+	//if( rnd < 0.5 )
+	//{
+	//	mDetY = -1;
+	//}
+	//else
+	//{
+	//	mDetY = 1;
+	//}
 }
 
 //キャラの方向スピードを取得
@@ -161,41 +200,6 @@ void Character::playerMove( Object* obj )
 			hitY = true;
 		}
 	}
-	//動かない物体との衝突判定
-	//for( int y = 0; y < 3; y++ )
-	//{
-	//	for( int x = 0; x < 3; x++ )
-	//	{
-	//		//キャラが居るマスなので、処理を飛ばす
-	//		if( x == 1 && y == 1 )
-	//		{
-	//			continue;
-	//		}
-
-	//		int tmpX = masX + mas[ y ][ x ][ 0 ];
-	//		int tmpY = masY + mas[ y ][ x ][ 1 ];
-	//		//X方向に対して、判定する
-	//		if( collisionDetectionToObject( movedX, mY, obj ) )
-	//		{
-	//			hitX = true;
-
-	//			//ObjectTypeがSTATICの場合
-	//			if( obj->objectType() == ObjectType::STATIC )
-	//			{
-	//				StaticObject* sObj = dynamic_cast< StaticObject* >( obj );
-
-	//			}
-	//			else if( obj->objectType() == ObjectType::DYANAMIC )
-	//			{
-	//			}
-	//		}
-	//		//Y方向に対して、判定する
-	//		if( collisionDetectionToObject( mX, movedY, obj ) )
-	//		{
-	//			hitY = true;
-	//		}
-	//	}
-	//}
 	
 	if( ( 0 < movedX && movedX < WINDOW_WIDTH ) && 
 		( 0 < movedY && movedY < WINDOW_HEIGHT ) )
@@ -274,7 +278,7 @@ void Character::draw( const Image* image ) const
 	switch ( mCharacterType )
 	{
 		case CHARACTERTYPE_PLAYER :
-			if( tmpIndex % 2 == 0 )			// 丸くなる
+			if( ( mDetX != 0 || mDetY != 0 ) && tmpIndex % 2 == 0 )			// 丸くなる
 			{
 				srcX = 1;
 				srcY = 0;
@@ -282,30 +286,12 @@ void Character::draw( const Image* image ) const
 			else							// 口が開く
 			{
 				srcX = 0;
-				if( mDetY == 0 )
-				{
-					if( mDetX > 0 )			// 右
-					{
-						srcY = 0;
-					}
-					else if( mDetX < 0 )	// 左
-					{
-						srcY = 1;
-					}
-				}
-				else if( mDetY < 0 )
-				{
-					srcY = 2;				// 上
-				}
-				else
-				{
-					srcY = 3;				// 下
-				}
+				srcY = mImageSrc;
 			}
 			break;
 		case CHARACTERTYPE_ENEMY :
 			srcY = 4;
-			srcX = 0; // ToDo : あとで消す
+			//srcX = 0; // ToDo : あとで消す
 			if( mDetY == 0 )
 			{
 				if( mDetX < 0 )			// 左
