@@ -26,9 +26,6 @@ public:
 	unsigned type() const;
 	void count();
 	
-	void update( Object* );
-	void playerMove( Object* );
-	void enemyMove( Object* );
 	void update();
 	void move();
 	
@@ -50,8 +47,6 @@ private:
 	int mCnt;
 	int mImageSrc;
 	bool isClear;
-	bool isDetRight;
-	bool isDetUp;
 };
 
 #endif

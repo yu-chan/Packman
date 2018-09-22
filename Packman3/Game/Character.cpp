@@ -11,9 +11,7 @@ mDetX( 0 ),
 mDetY( 0 ),
 mCnt( 0 ),
 mImageSrc( 2 ),
-isClear( false ),
-isDetRight( true ),
-isDetUp( false )
+isClear( false )
 {
 }
 
@@ -115,19 +113,6 @@ void Character::count()
 	mCnt++;
 }
 
-// キャラの動きを更新
-void Character::update( Object* obj )
-{
-	if( !dead() ) {
-		if( isPlayer() ) {
-			playerMove( obj );
-		} else if( isEnemy() ) {
-			enemyMove( obj );
-		}
-		mCnt++;
-	}
-}
-
 void Character::update()
 {
 	if( !dead() ) {
@@ -136,86 +121,10 @@ void Character::update()
 	}
 }
 
-/*
-プレイヤー専用
-プレイヤーを操作する
-*/
-void Character::playerMove( Object* obj )
-{
-	// 押したキーにより動く方向を決める
-	if( KeyboardManager::instance()->isOn( KEY_INPUT_RIGHT ) )
-	{ // 右矢印キーを押している
-		isDetRight = true;
-		mDetX = 1;
-		mDetY = 0;
-	}
-	else if( KeyboardManager::instance()->isOn( KEY_INPUT_LEFT ) )
-	{ // 左矢印キーを押している
-		isDetRight = false;
-		mDetX = -1;
-		mDetY = 0;
-	}
-	else if( KeyboardManager::instance()->isOn( KEY_INPUT_UP ) )
-	{ // 上矢印キーを押している
-		isDetUp = true;
-		mDetX = 0;
-		mDetY = -1;
-	}
-	else if( KeyboardManager::instance()->isOn( KEY_INPUT_DOWN ) )
-	{ // 下矢印キーを押している
-		isDetUp = false;
-		mDetX = 0;
-		mDetY = 1;
-	}
-
-	//移動後の座標
-	int movedX = mX + mDetX;
-	int movedY = mY + mDetY;
-	//移動した際にオブジェクトにあたっているかどうか
-	bool hitX = false, hitY = false;
-	if( obj->objectType() == STATIC )
-	{
-	}
-	else if( obj->objectType() == DYNAMIC )
-	{
-		// X方向に対して
-		if( collisionDetectionToObject( movedX, mY, obj ) )
-		{
-			hitX = true;
-		}
-		// Y方向に対して
-		if( collisionDetectionToObject( mY, movedY, obj ) )
-		{
-			hitY = true;
-		}
-	}
-	
-	if( ( 0 < movedX && movedX < WINDOW_WIDTH ) && 
-		( 0 < movedY && movedY < WINDOW_HEIGHT ) )
-	{
-		if( hitX && !hitY )
-		{ //Y方向のみ移動できる
-			mY = movedY;
-		}
-		else if( !hitX && hitY )
-		{ //X方向のみ移動できる
-			mX = movedX;
-		}
-	}
-}
-
 void Character::move()
 {
 	mX += mDetX;
 	mY += mDetY;
-}
-
-/*
-敵専用
-敵を動かす
-*/
-void Character::enemyMove( Object* obj )
-{
 }
 
 // キャラが死んでいるかどうかを返す
