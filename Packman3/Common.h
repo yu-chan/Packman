@@ -9,6 +9,9 @@
 // フレームレート
 #define FPS 60
 
+// 無敵時間
+#define INVINCIBLE_TIME 30
+
 // プレイ中の1マスの幅
 #define OBJECT_SIZE 48
 #define OBJECT_HALF_SIZE OBJECT_SIZE / 2

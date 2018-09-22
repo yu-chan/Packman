@@ -60,7 +60,8 @@ void StaticObject::draw( const Image* image ) const
 			srcY = 5;
 			break;
 		case FLAG_INVINCIBLE :
-			//ToDo : ‰æ‘œ‚ð—pˆÓ‚·‚é
+			srcX = 2;
+			srcY = 5;
 			break;
 	}
 

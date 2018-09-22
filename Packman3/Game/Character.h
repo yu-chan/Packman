@@ -24,11 +24,13 @@ public:
 	void getDet( int*, int* );
 
 	unsigned type() const;
-	void count();
 	
 	void update();
 	void move();
+	void playerBeInvincible();
+	void playerBeNormal();
 	
+	bool invincible() const;
 	bool dead() const;
 	bool clear() const;
 	bool isPlayer() const;
@@ -45,8 +47,10 @@ private:
 	int mDetX;
 	int mDetY;
 	int mCnt;
+	int mInvincibleCnt;
 	int mImageSrc;
 	bool isClear;
+	bool isInvincible;
 };
 
 #endif

@@ -10,8 +10,10 @@ mCharacterType( CHARACTERTYPE_NONE ),
 mDetX( 0 ),
 mDetY( 0 ),
 mCnt( 0 ),
+mInvincibleCnt( 0 ),
 mImageSrc( 2 ),
-isClear( false )
+isClear( false ),
+isInvincible( false )
 {
 }
 
@@ -103,28 +105,46 @@ unsigned Character::type() const
 	return mCharacterType;
 }
 
-//キャラクターをカウントする
-void Character::count()
-{
-	if( mCnt == FPS )
-	{
-		mCnt = 0;
-	}
-	mCnt++;
-}
-
+// カウントを更新
 void Character::update()
 {
 	if( !dead() ) {
-		move();
+		if( invincible() )
+		{
+			mInvincibleCnt++;
+		}
+		playerBeInvincible();
 		mCnt++;
 	}
 }
 
+// キャラを動かす
 void Character::move()
 {
 	mX += mDetX;
 	mY += mDetY;
+}
+
+// プレイヤーが無敵状態になる
+void Character::playerBeInvincible()
+{
+	isInvincible = true;
+}
+
+// プレイヤーが通常状態になる
+void Character::playerBeNormal()
+{
+	if( isPlayer() && mInvincibleCnt == FPS * INVINCIBLE_TIME )
+	{
+		isInvincible = false;
+		mInvincibleCnt = 0;
+	}
+}
+
+// プレイヤーが無敵状態かどうかを返す
+bool Character::invincible() const
+{
+	return isInvincible;
 }
 
 // キャラが死んでいるかどうかを返す
@@ -185,7 +205,6 @@ void Character::draw( const Image* image ) const
 			break;
 		case CHARACTERTYPE_ENEMY :
 			srcY = 4;
-			//srcX = 0; // ToDo : あとで消す
 			if( mDetY == 0 )
 			{
 				if( mDetX < 0 )			// 左

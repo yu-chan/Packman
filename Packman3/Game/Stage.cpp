@@ -217,14 +217,22 @@ void Stage::update()
 		{
 			if( mCharacters[ i ].collisionDetectionToObject( movedX, movedY, sObj ) )
 			{
+				// 壁以外にぶつかった
 				if( sObj->flag() != StaticObject::FLAG_WALL )
 				{
+					// プレイヤーが触れた場合は、消す
 					if( mCharacters[ i ].type() == Character::CHARACTERTYPE_PLAYER )
 					{
 						unsigned flag = sObj->flag();
+						// 触れたものが無敵アイテムなら、プレイヤーを無敵モードにする
+						if( sObj->flag() == StaticObject::FLAG_INVINCIBLE )
+						{
+							mCharacters[ i ].playerBeInvincible();
+						}
 						sObj->resetFlag( flag );
 					}
 				}
+				// 壁にぶつかっている
 				else
 				{
 					hitWall = true;
@@ -232,6 +240,7 @@ void Stage::update()
 			}
 		}
 
+		// キャラ同士のコリジョン判定
 		bool hitCharacter = false;
 		for( int j = i + 1; j < mCharactersNumber; j++ )
 		{
@@ -241,7 +250,16 @@ void Stage::update()
 				hitCharacter = true;
 				if( mCharacters[ i ].type() == Character::CHARACTERTYPE_PLAYER )
 				{
-					mCharacters[ i ].dieCharacter();
+					// プレイヤーが無敵モードなら、敵を倒す
+					if( mCharacters[ i ].invincible() )
+					{
+						mCharacters[ j ].dieCharacter();
+					}
+					// プレイヤーが通常モードなら、プレイヤーが倒される
+					else
+					{
+						mCharacters[ i ].dieCharacter();
+					}
 				}
 			}
 		}
@@ -252,13 +270,15 @@ void Stage::update()
 		{
 			if( !hitWall & !hitCharacter )
 			{
-				mCharacters[ i ].update();
+				mCharacters[ i ].move();
 			}
 			else if( hitWall && mCharacters[ i ].type() == Character::CHARACTERTYPE_ENEMY )
 			{
 				mCharacters[ i ].setRandomDet();
 			}
 		}
+
+		mCharacters[ i ].update();
 	}
 }
 
