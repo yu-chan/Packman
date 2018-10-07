@@ -1,11 +1,8 @@
-﻿2018/09/22 14:54:11 にビルドを開始しました。
+﻿2018/10/07 12:48:44 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\USER\documents\visual studio 2012\Projects\Packman3\Packman3\Packman3.vcxproj" (Build ターゲット)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Users\USER\Documents\Visual Studio 2012\Projects\Packman3\Packman3\DxLib" /I"C:\Users\USER\documents\visual studio 2012\Projects\Packman3\Packman3\\" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game\Character.cpp Game\Stage.cpp Game\StaticObject.cpp
-         StaticObject.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Users\USER\Documents\Visual Studio 2012\Projects\Packman3\Packman3\DxLib" /I"C:\Users\USER\documents\visual studio 2012\Projects\Packman3\Packman3\\" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game\Stage.cpp
          Stage.cpp
-         Character.cpp
-         コードを生成中...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\USER\documents\visual studio 2012\Projects\Packman3\Debug\Packman3.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\USER\Documents\Visual Studio 2012\Projects\Packman3\Packman3\DxLib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\USER\documents\visual studio 2012\Projects\Packman3\Debug\Packman3.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\USER\documents\visual studio 2012\Projects\Packman3\Debug\Packman3.lib" /MACHINE:X86 Debug\File.obj
          Debug\Character.obj
@@ -30,4 +27,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:03.90
+経過時間 00:00:02.17

@@ -245,28 +245,30 @@ void Stage::update()
 		for( int j = i + 1; j < mCharactersNumber; j++ )
 		{
 			Character* chara = &mCharacters[ j ];
-			if( mCharacters[ i ].collisionDetectionToObject( movedX, movedY, chara ) )
-			{
-				hitCharacter = true;
-				if( mCharacters[ i ].type() == Character::CHARACTERTYPE_PLAYER )
+			if( chara->isPlayer() || chara->isEnemy() ){
+				if( mCharacters[ i ].collisionDetectionToObject( movedX, movedY, chara ) )
 				{
-					// プレイヤーが無敵モードなら、敵を倒す
-					if( mCharacters[ i ].invincible() )
+					hitCharacter = true;
+					if( mCharacters[ i ].type() == Character::CHARACTERTYPE_PLAYER )
 					{
-						mCharacters[ j ].dieCharacter();
-					}
-					// プレイヤーが通常モードなら、プレイヤーが倒される
-					else
-					{
-						mCharacters[ i ].dieCharacter();
+						// プレイヤーが無敵モードなら、敵を倒す
+						if( mCharacters[ i ].invincible() )
+						{
+							mCharacters[ j ].dieCharacter();
+						}
+						// プレイヤーが通常モードなら、プレイヤーが倒される
+						else
+						{
+							mCharacters[ i ].dieCharacter();
+						}
 					}
 				}
 			}
 		}
 
 		// プレイヤーは常にスクリーンにいる必要がある
-		if((OBJECT_HALF_SIZE < movedX && movedX < WINDOW_WIDTH  - OBJECT_HALF_SIZE) && 
-		(OBJECT_HALF_SIZE < movedY && movedY < WINDOW_HEIGHT - OBJECT_HALF_SIZE))
+		if((OBJECT_HALF_SIZE < movedX && movedX < mWidth * OBJECT_SIZE - OBJECT_HALF_SIZE) && 
+		(OBJECT_HALF_SIZE < movedY && movedY < mHeight * OBJECT_SIZE - OBJECT_HALF_SIZE))
 		{
 			if( !hitWall & !hitCharacter )
 			{
